@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://b43ug8jyp5whc"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_mgqwg"]
+[ext_resource type="PackedScene" uid="uid://bvf0xrgyemno0" path="res://scenes/octopus.tscn" id="1_xhush"]
+[ext_resource type="PackedScene" uid="uid://vudwdhsycp0s" path="res://scenes/static_body_2d.tscn" id="3_qissp"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_mgqwg")
+
+[node name="octopus" parent="." instance=ExtResource("1_xhush")]
+position = Vector2(49, 16)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(-2, 144)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(274, 146)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(555, 144)
+
+[node name="StaticBody2D4" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(228, 35)
+
+[node name="StaticBody2D5" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(526, 39)
+
+[node name="StaticBody2D6" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(818, 39)
+rotation = 0.210165
+
+[node name="StaticBody2D7" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(1175, 16)
+rotation = 2.03591
+
+[node name="StaticBody2D8" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(1056, 274)
+rotation = 3.11692
+
+[node name="StaticBody2D9" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(792, 282)
+rotation = 3.17708
+
+[node name="StaticBody2D10" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(509, 272)
+rotation = 2.92354
+
+[node name="StaticBody2D11" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(10, 172)
+rotation = 3.65482
+
+[node name="StaticBody2D21" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(109, 429)
+rotation = 3.65482
+
+[node name="StaticBody2D12" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(217, 578)
+rotation = 3.39432
+
+[node name="StaticBody2D13" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(886, 371)
+rotation = 2.92354
+
+[node name="StaticBody2D15" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(795, 490)
+rotation = 2.92354
+scale = Vector2(0.747191, 0.747191)
+
+[node name="StaticBody2D14" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(433, 652)
+rotation = 4.76462
+
+[node name="StaticBody2D16" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(745, 622)
+rotation = 5.49885
+
+[node name="StaticBody2D19" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(228, 568)
+rotation = 5.49885
+
+[node name="StaticBody2D17" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(450, 617)
+rotation = 6.26619
+
+[node name="StaticBody2D18" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(758, 606)
+rotation = 6.26619
+
+[node name="StaticBody2D20" parent="." instance=ExtResource("3_qissp")]
+position = Vector2(937, 400)
+rotation = 6.26619

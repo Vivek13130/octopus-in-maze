@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://srh03lmyexb4"]
+
+[ext_resource type="Texture2D" uid="uid://b8fkg3jgfimpo" path="res://assets/residue.png" id="1_ps86r"]
+
+[node name="residue" type="Sprite2D"]
+modulate = Color(0.780392, 0, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ps86r")

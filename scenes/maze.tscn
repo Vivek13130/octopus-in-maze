@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://fxw4y5p5s4y8"]
+
+[ext_resource type="Script" path="res://scenes/maze.gd" id="1_kpbhb"]
+[ext_resource type="PackedScene" uid="uid://bvf0xrgyemno0" path="res://scenes/octopus.tscn" id="2_lcgwt"]
+
+[sub_resource type="Curve" id="Curve_fwbaw"]
+_data = [Vector2(0.00271739, 0.321313), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ujw2i"]
+colors = PackedColorArray(1, 1, 0, 1, 0, 1, 0, 1)
+
+[node name="maze" type="Node2D"]
+script = ExtResource("1_kpbhb")
+player_scene = ExtResource("2_lcgwt")
+
+[node name="residueContainer" type="Node2D" parent="."]
+
+[node name="mazeWallsContainer" type="Node2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 20.0
+width_curve = SubResource("Curve_fwbaw")
+gradient = SubResource("Gradient_ujw2i")
+joint_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="playerContainer" type="Node2D" parent="."]
+
+[node name="headToUI" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TimeTaken" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Time taken : "
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -142.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+layout_mode = 2
+
+[node name="show total time" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+
+[node name="heading back" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+
+[connection signal="timeout" from="headToUI" to="." method="_on_head_to_ui_timeout"]

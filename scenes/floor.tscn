@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://7yuu42ahrn1y"]
+
+[node name="Floor" type="QRigidBodyNode"]
+mode = 1
+layers = 2
+position = Vector2(519, 555)
+
+[node name="QMeshRectNode" type="QMeshRectNode" parent="."]
+rectangle_size = Vector2(2000, 300)
+enable_vector_rendering = true
+enable_stroke = true
+data_particle_positions = PackedVector2Array(-1000, -150, 1000, -150, 1000, 150, -1000, 150)
+data_particle_radius = PackedFloat32Array(0.5, 0.5, 0.5, 0.5)
+data_particle_is_internal = PackedByteArray(0, 0, 0, 0)
+data_particle_is_enabled = PackedByteArray(1, 1, 1, 1)
+data_particle_is_lazy = PackedByteArray(0, 0, 0, 0)
+data_springs = Array[PackedInt32Array]([PackedInt32Array(0, 1), PackedInt32Array(1, 2), PackedInt32Array(2, 3), PackedInt32Array(3, 0)])
+data_internal_springs = Array[PackedInt32Array]([PackedInt32Array(0, 2), PackedInt32Array(1, 3)])
+data_polygon = PackedInt32Array(0, 1, 2, 3)
+data_uv_maps = Array[PackedInt32Array]([PackedInt32Array(0, 1, 3), PackedInt32Array(1, 2, 3)])
