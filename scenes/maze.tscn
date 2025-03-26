@@ -18,6 +18,8 @@ player_scene = ExtResource("2_lcgwt")
 
 [node name="mazeWallsContainer" type="Node2D" parent="."]
 
+[node name="spawn_exit_box_container" type="Node2D" parent="."]
+
 [node name="Line2D" type="Line2D" parent="."]
 width = 20.0
 width_curve = SubResource("Curve_fwbaw")

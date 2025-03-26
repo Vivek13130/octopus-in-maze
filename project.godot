@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="IDZ_Octopus_In_Maze"
-run/main_scene="res://scenes/main_ui.tscn"
+run/main_scene="res://scenes/maze.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
