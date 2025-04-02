@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 300.0
-const GRAVITY = 1000.0
+const GRAVITY = 800.0
 @export var residue_interval := 0.5
 
 @export var residue_scene : PackedScene
@@ -21,6 +21,7 @@ func _ready() -> void:
 	residue_container = maze_node.get_node("residueContainer")
 
 
+# constant speed movement 
 func _physics_process(delta: float) -> void:
 	if(Manager.reached_exit):
 		return # stop movement
@@ -32,8 +33,8 @@ func _physics_process(delta: float) -> void:
 		Manager.path_of_player.append(global_position)
 	
 	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_axis("ui_left", "ui_right")
-	input_vector.y = Input.get_axis("ui_up", "ui_down")
+	input_vector.x = Input.get_axis("left", "right")
+	input_vector.y = Input.get_axis("up", "down")
 	
 	# Allow upward movement against gravity
 	if input_vector.y != 0:
@@ -46,6 +47,18 @@ func _physics_process(delta: float) -> void:
 	
 
 
+
+
+func take_damage():
+	screen_shake()
+
+func screen_shake():
+	var tween = create_tween()
+	tween.tween_property(get_tree().current_scene, "position", Vector2(20, 20), 0.05)
+	tween.tween_property(get_tree().current_scene, "position", Vector2(-20, -20), 0.05)
+	tween.tween_property(get_tree().current_scene, "position", Vector2(20, 20), 0.05)
+	tween.tween_property(get_tree().current_scene, "position", Vector2(-20, -20), 0.05)
+	tween.tween_property(get_tree().current_scene, "position", Vector2(0, 0), 0.05)
 
 func _on_residue_timer_timeout() -> void:
 	if(Manager.leave_residue):

@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://tkl0f26btcg0"]
+
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_d74tm"]
+[ext_resource type="Texture2D" uid="uid://bafl3312kotk7" path="res://assets/bomb.png" id="2_yljpa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1v5nh"]
+radius = 24.0208
+
+[sub_resource type="Gradient" id="Gradient_2jmv5"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i07oi"]
+radius = 40.0125
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_mask = 2
+script = ExtResource("1_d74tm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yljpa")
+region_enabled = true
+region_rect = Rect2(7, 13, 100, 98)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1v5nh")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -24)
+amount = 10
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+color = Color(0.462695, 0.0225216, 7.21961e-08, 1)
+
+[node name="explosion" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 80
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.6
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 400.0
+scale_amount_max = 20.0
+color_ramp = SubResource("Gradient_2jmv5")
+
+[node name="player_damage_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_damage_area"]
+shape = SubResource("CircleShape2D_i07oi")
+debug_color = Color(0.927693, 3.72532e-05, 0.667563, 0.42)
+
+[connection signal="body_entered" from="player_damage_area" to="." method="_on_player_damage_area_body_entered"]

@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://fxw4y5p5s4y8"]
+[gd_scene load_steps=8 format=3 uid="uid://fxw4y5p5s4y8"]
 
 [ext_resource type="Script" path="res://scenes/maze.gd" id="1_kpbhb"]
 [ext_resource type="PackedScene" uid="uid://bvf0xrgyemno0" path="res://scenes/octopus.tscn" id="2_lcgwt"]
+[ext_resource type="PackedScene" uid="uid://tkl0f26btcg0" path="res://scenes/enemy.tscn" id="3_v2loc"]
+[ext_resource type="PackedScene" uid="uid://j4k2qlwfn1j" path="res://scenes/in-game-equation.tscn" id="4_hexf8"]
+[ext_resource type="PackedScene" uid="uid://63cabh43gubp" path="res://scenes/counting_tile.tscn" id="4_nlyfs"]
 
 [sub_resource type="Curve" id="Curve_fwbaw"]
 _data = [Vector2(0.00271739, 0.321313), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -13,6 +16,8 @@ colors = PackedColorArray(1, 1, 0, 1, 0, 1, 0, 1)
 [node name="maze" type="Node2D"]
 script = ExtResource("1_kpbhb")
 player_scene = ExtResource("2_lcgwt")
+enemy_scene = ExtResource("3_v2loc")
+counting_tile_scene = ExtResource("4_nlyfs")
 
 [node name="residueContainer" type="Node2D" parent="."]
 
@@ -36,45 +41,6 @@ one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TimeTaken" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-text = "Time taken : "
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -142.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
-layout_mode = 2
-
-[node name="show total time" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-
-[node name="heading back" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
+[node name="in-game-equation" parent="CanvasLayer" instance=ExtResource("4_hexf8")]
 
 [connection signal="timeout" from="headToUI" to="." method="_on_head_to_ui_timeout"]

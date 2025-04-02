@@ -40,29 +40,65 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Maze Size : "
 
-[node name="TextEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="maze_size" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-placeholder_text = "20"
 alignment = 1
 
-[node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Leave Residue"
+text = "No. of equations : "
+
+[node name="equation_count" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Maze Complexity (0-1) : "
+
+[node name="maze_complexity" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+alignment = 1
+
+[node name="two_digit_numbers" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Include two digit numbers ?"
 alignment = 1
 expand_icon = true
 
-[node name="CheckBox2" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+[node name="numbers_blank" type="CheckBox" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Show Path Traveled"
+text = "Blank for Numbers ? "
 alignment = 1
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="operator_blank" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Blank for Operators ? "
+alignment = 1
+
+[node name="play_button" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/two_digit_numbers" to="." method="_on_two_digit_numbers_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/numbers_blank" to="." method="_on_numbers_blank_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/operator_blank" to="." method="_on_operator_blank_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/play_button" to="." method="_on_play_button_pressed"]

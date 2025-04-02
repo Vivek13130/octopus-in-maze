@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dj0bedhac2d4r"]
+
+[node name="grabable_tile" type="StaticBody2D"]

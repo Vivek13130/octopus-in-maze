@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://mivjjxp42qpa"]
+
+[ext_resource type="Texture2D" uid="uid://bj3hj086nhbq3" path="res://assets/orb.png" id="2_76d8x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76358"]
+radius = 22.0
+
+[node name="unpickable_orb" type="RigidBody2D"]
+mass = 0.1
+gravity_scale = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 1, 1, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_76d8x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_76358")

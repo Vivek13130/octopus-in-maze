@@ -1,13 +1,26 @@
 extends Control
 
-@onready var text_edit: LineEdit = $CenterContainer/VBoxContainer/HBoxContainer/TextEdit
-@onready var check_box: CheckBox = $CenterContainer/VBoxContainer/CheckBox
-@onready var check_box_2: CheckBox = $CenterContainer/VBoxContainer/CheckBox2
-@onready var button: Button = $CenterContainer/VBoxContainer/Button
+@onready var maze_size: LineEdit = $CenterContainer/VBoxContainer/HBoxContainer/maze_size
+@onready var equation_count: LineEdit = $CenterContainer/VBoxContainer/HBoxContainer2/equation_count
+@onready var maze_complexity: LineEdit = $CenterContainer/VBoxContainer/HBoxContainer3/maze_complexity
 
 
-func _on_button_pressed() -> void:
-	var input_str = text_edit.text
+
+func _on_two_digit_numbers_pressed() -> void:
+	Manager.two_digit_numbers = !Manager.two_digit_numbers
+
+
+func _on_numbers_blank_pressed() -> void:
+	Manager.numbers_blank = !Manager.numbers_blank
+
+
+func _on_operator_blank_pressed() -> void:
+	Manager.operator_blank = !Manager.operator_blank
+
+
+func _on_play_button_pressed() -> void:
+	# Set the maze size 
+	var input_str = maze_size.text
 	var input_val = input_str.to_int()
 
 	if input_str.is_valid_int():
@@ -15,12 +28,16 @@ func _on_button_pressed() -> void:
 		Manager.grid_size = input_val
 		print("Grid size set to:", Manager.grid_size)
 	else:
-		Manager.grid_size = 20
+		Manager.grid_size = 10
 		print("Invalid integer input")
 	
-	Manager.leave_residue = check_box.button_pressed
-	Manager.show_path_traveled = check_box_2.button_pressed
+	# Set maze complexity 
+	var maze_comp = maze_complexity.text.to_float()
+	Manager.maze_complexity = maze_comp
+	print("maze comp : " , maze_comp)
 	
+	# Set number of equations : 
+	Manager.equation_count = equation_count.text.to_int()
 	
 	Manager.path_of_player.clear()
 	Manager.reached_exit = false
