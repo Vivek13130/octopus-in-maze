@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	if(Manager.reached_exit):
 		return # stop movement
 	
-	velocity.y += GRAVITY * delta
+	velocity.y += (GRAVITY/2) * delta
 	
 	# store position at certain intervals or when moved enough
 	if Manager.path_of_player.is_empty() or Manager.path_of_player[-1].distance_to(global_position) > 20.0:

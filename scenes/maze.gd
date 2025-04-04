@@ -27,7 +27,8 @@ var maze = []
 var stack = []
 var directions = [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]
 var player 
-var player_body 
+var player_body
+ 
 
 func _ready():
 	# load the variables from manager : 
@@ -42,7 +43,6 @@ func _ready():
 	convert_maze_to_walls()
 	
 	spawn_player()
-	
 	spawn_counting_tiles()
 	#spawn_enemies(grid_size)
 	#spawn_orbs(0 , grid_size / 2)
@@ -61,9 +61,15 @@ func format_time(seconds: float) -> String:
 	var secs = int(seconds) % 60
 	return "%02d:%02d" % [mins, secs]
 
+
+
+
+
+
+
 func check_exit_status():
 	
-	if Manager.equation_solved == Manager.equation_count and !Manager.reached_exit:
+	if Manager.equation_solved == Manager.equation_count and !Manager.reached_exit :
 		Manager.reached_exit = true
 		$Line2D.points = Manager.path_of_player
 		$residueContainer.visible = false
@@ -368,5 +374,6 @@ func spawn_wall(position: Vector2, size: Vector2):
 
 func _on_head_to_ui_timeout() -> void:
 	print("RESTARTING GAME...")
+	Manager.clear_manager_state()
 	get_tree().change_scene_to_file("res://scenes/main_ui.tscn")
 	

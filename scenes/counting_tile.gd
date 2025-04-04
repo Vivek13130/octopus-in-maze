@@ -7,6 +7,12 @@ extends StaticBody2D
 
 var player: Node2D = null
 var is_following: bool = false
+@onready var start_blinking: Timer = $start_blinking
+
+func _ready() -> void:
+	var random_time = randf_range(0, 3.0)
+	start_blinking.wait_time = random_time
+	#start_blinking.start()
 
 
 func _process(delta):
@@ -62,6 +68,8 @@ func check_exit_status():
 		print("Tile dropped outside exit box.")
 		print("tile pos : " , global_position)
 
+
+
 func validate_equation():
 	var tile_value = counting_value.text
 
@@ -74,34 +82,58 @@ func validate_equation():
 	if tile_value == str(Manager.current_equation["correct_value"]):
 		print("✅ Correct Answer!")
 		Manager.equation_solved += 1
-		screen_shake()
+		screen_shake_correct()
 		celebrate.emitting = true
-		Manager.load_next_equation()
+		Manager.load_next_equation(true)
+		Manager.free_values(tile_value)
 	else:
 		print("❌ Wrong Answer!")
+		Manager.load_next_equation(false)
+		screen_shake_wrong()
 		shake_tile()
 		sad.emitting = true
 
 
-func screen_shake():
+
+
+func screen_shake_correct():
+	var scene = get_tree().current_scene
 	var tween = create_tween()
-	tween.tween_property(get_tree().current_scene, "position", Vector2(20, 20), 0.05)
-	tween.tween_property(get_tree().current_scene, "position", Vector2(-20, -20), 0.05)
-	tween.tween_property(get_tree().current_scene, "position", Vector2(0, 0), 0.05)
+	tween.tween_property(scene, "position", Vector2(10, -10), 0.05)
+	tween.tween_property(scene, "position", Vector2(-10, 10), 0.05)
+	tween.tween_property(scene, "position", Vector2(0, 0), 0.05)
+
+func screen_shake_wrong():
+	var scene = get_tree().current_scene
+	var tween = create_tween()
+	tween.tween_property(scene, "position", Vector2(20, 20), 0.03)
+	tween.tween_property(scene, "position", Vector2(-25, -15), 0.03)
+	tween.tween_property(scene, "position", Vector2(15, -20), 0.03)
+	tween.tween_property(scene, "position", Vector2(-20, 25), 0.03)
+	tween.tween_property(scene, "position", Vector2(0, 0), 0.03)
+
 
 func shake_tile():
 	var tween = create_tween()
-	tween.tween_property(self, "position:x", position.x + 30, 0.05)
-	tween.tween_property(self, "position:x", position.x - 30, 0.05)
+	tween.tween_property(self, "position:x", position.x + 40, 0.05)
+	tween.tween_property(self, "position:x", position.x - 40, 0.05)
+	tween.tween_property(self, "position:x", position.x + 40, 0.05)
+	tween.tween_property(self, "position:x", position.x - 40, 0.05)
+	tween.tween_property(self, "position:x", position.x + 40, 0.05)
+	tween.tween_property(self, "position:x", position.x - 40, 0.05)
 	tween.tween_property(self, "position:x", position.x, 0.05)
 
 
 func particles_finished() -> void:
-	if Manager.can_we_free(counting_value.text):
+	var val = counting_value.text
+
+	if Manager.can_we_free(val):
 		queue_free()
+		Manager.free_values(val)
 	else:
-		var random_pos = get_random_grid_position()
-		position = random_pos
+		print("spawned again !!!!!!")
+		position = get_random_grid_position()
+
 
 func get_random_grid_position() -> Vector2:
 	var grid_size = Manager.grid_size
@@ -109,3 +141,23 @@ func get_random_grid_position() -> Vector2:
 	var random_x = randi_range(0, grid_size - 1)
 	var random_y = randi_range(0, grid_size - 1)
 	return Vector2((random_x + 0.5) * cell_size, (random_y + 0.5) * cell_size)
+
+@onready var blinking_light: PointLight2D = $blinking_light
+@onready var blink_timer: Timer = $blink_timer
+
+func _on_blink_timer_timeout() -> void:
+	if(is_following):
+		blinking_light.enabled = false 
+		return 
+	 
+	blinking_light.enabled = !blinking_light.enabled
+	if(blinking_light.enabled):
+		blink_timer.wait_time = 0.1
+	else:
+		blink_timer.wait_time = 4
+	blink_timer.start()
+
+
+func _on_start_blinking_timeout() -> void:
+	blink_timer.autostart = true
+	blink_timer.start()

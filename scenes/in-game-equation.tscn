@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://j4k2qlwfn1j"]
+[gd_scene load_steps=6 format=3 uid="uid://j4k2qlwfn1j"]
 
 [ext_resource type="Script" path="res://scenes/in_game_equation.gd" id="1_oalic"]
 [ext_resource type="StyleBox" uid="uid://cr37djakuetom" path="res://scenes/equation_box.tres" id="2_evek4"]
+[ext_resource type="StyleBox" uid="uid://cvee8fp0jmc12" path="res://scenes/empty_equation_box.tres" id="3_8btnd"]
+
+[sub_resource type="Curve" id="Curve_1ye3j"]
+_data = [Vector2(0, 0.499358), 0.0, 0.0, 0, 0, Vector2(0.550314, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_u7oiw"]
+offsets = PackedFloat32Array(0, 0.239865, 1)
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
 [node name="in-game-equation" type="Control"]
 layout_mode = 3
@@ -18,7 +27,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-color = Color(0, 0.269089, 0.120358, 1)
+color = Color(0.0909426, 0, 0.503951, 1)
 
 [node name="GridContainer" type="GridContainer" parent="main_strip"]
 custom_minimum_size = Vector2(0, 80)
@@ -35,7 +44,7 @@ offset_bottom = 41.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = 20
-columns = 5
+columns = 6
 
 [node name="num1" type="PanelContainer" parent="main_strip/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
@@ -92,6 +101,50 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 60
 text = "90"
 
+[node name="correct" type="PanelContainer" parent="main_strip/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_evek4")
+
+[node name="Label" type="Label" parent="main_strip/GridContainer/correct"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "✓"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="incorrect" type="PanelContainer" parent="main_strip/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_8btnd")
+
+[node name="Label" type="Label" parent="main_strip/GridContainer/incorrect"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="celebrationParticles" type="CPUParticles2D" parent="main_strip"]
+emitting = false
+amount = 40
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.5
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_1ye3j")
+color_ramp = SubResource("Gradient_u7oiw")
+
 [node name="bottom_strip" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 1
@@ -101,7 +154,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0, 0.270588, 0.121569, 1)
+color = Color(0.0901961, 0, 0.505882, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="bottom_strip"]
 layout_mode = 1
@@ -129,3 +182,9 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "You solved all equations in : 5:59 .
 Heading Back to main menu in 5 s ..."
+
+[node name="next_equation" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="next_equation" to="." method="_on_next_equation_timeout"]

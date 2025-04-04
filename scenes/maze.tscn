@@ -5,19 +5,30 @@
 [ext_resource type="PackedScene" uid="uid://tkl0f26btcg0" path="res://scenes/enemy.tscn" id="3_v2loc"]
 [ext_resource type="PackedScene" uid="uid://j4k2qlwfn1j" path="res://scenes/in-game-equation.tscn" id="4_hexf8"]
 [ext_resource type="PackedScene" uid="uid://63cabh43gubp" path="res://scenes/counting_tile.tscn" id="4_nlyfs"]
+[ext_resource type="Texture2D" uid="uid://nul6gwk5nvyr" path="res://assets/background.jpeg" id="6_tbu74"]
 
 [sub_resource type="Curve" id="Curve_fwbaw"]
 _data = [Vector2(0.00271739, 0.321313), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_ujw2i"]
-colors = PackedColorArray(1, 1, 0, 1, 0, 1, 0, 1)
 
 [node name="maze" type="Node2D"]
 script = ExtResource("1_kpbhb")
 player_scene = ExtResource("2_lcgwt")
 enemy_scene = ExtResource("3_v2loc")
 counting_tile_scene = ExtResource("4_nlyfs")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(6000, 3000)
+autoscroll = Vector2(100, 100)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Parallax2D"]
+motion_mirroring = Vector2(1100, 600)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D/ParallaxLayer"]
+modulate = Color(0, 0.494118, 0.823529, 1)
+position = Vector2(-385, 171)
+scale = Vector2(2, 2)
+texture = ExtResource("6_tbu74")
 
 [node name="residueContainer" type="Node2D" parent="."]
 
@@ -28,7 +39,6 @@ counting_tile_scene = ExtResource("4_nlyfs")
 [node name="Line2D" type="Line2D" parent="."]
 width = 20.0
 width_curve = SubResource("Curve_fwbaw")
-gradient = SubResource("Gradient_ujw2i")
 joint_mode = 1
 begin_cap_mode = 2
 end_cap_mode = 2
@@ -36,10 +46,11 @@ end_cap_mode = 2
 [node name="playerContainer" type="Node2D" parent="."]
 
 [node name="headToUI" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 10.0
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="in-game-equation" parent="CanvasLayer" instance=ExtResource("4_hexf8")]
 

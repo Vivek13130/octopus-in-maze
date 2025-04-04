@@ -33,9 +33,9 @@ func simple_zoom(delta):
 		zoomTarget *= 1.1
 	if Input.is_action_just_pressed("camera_zoom_out"):
 		zoomTarget *= 0.9
-	
-	zoomTarget.x = clamp(zoomTarget.x, -zoom_in_limit , zoom_in_limit)
-	zoomTarget.y = clamp(zoomTarget.y, -zoom_in_limit , zoom_in_limit)
+	 
+	zoomTarget.x = clamp(zoomTarget.x, 0.25, zoom_in_limit)
+	zoomTarget.y = clamp(zoomTarget.y, 0.25, zoom_in_limit)
 	
 	zoom = zoom.slerp(zoomTarget, zoomSpeed * delta)
 	
@@ -45,7 +45,6 @@ func simple_zoom(delta):
 func pan_camera():
 	if Input.is_action_just_pressed("right_click"):  # Start drag
 		isDragging = true
-		isDetached = true  # Temporarily detach from player
 		dragStartMousePos = get_global_mouse_position()
 		dragStartCameraPos = global_position
 

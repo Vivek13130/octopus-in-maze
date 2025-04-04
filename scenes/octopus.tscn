@@ -7817,7 +7817,7 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="Bone-34" type="Bone2D" parent="limbContainer/limb7/SoftBody2D/Skeleton2D"]
 position = Vector2(125.001, 18.7711)
-rotation = -0.00922796
+rotation = -0.00922799
 scale = Vector2(0.999963, 0.999963)
 rest = Transform2D(0.999957, -0.00922815, 0.00922815, 0.999957, 125.001, 18.7711)
 auto_calculate_length_and_angle = false
@@ -18631,7 +18631,7 @@ metadata/_local_pose_override_enabled_ = true
 
 [node name="Bone-34" type="Bone2D" parent="limbContainer/limb12/SoftBody2D/Skeleton2D"]
 position = Vector2(125.001, 18.7711)
-rotation = -0.00923027
+rotation = -0.00923042
 scale = Vector2(0.999974, 0.999974)
 rest = Transform2D(0.999957, -0.00922815, 0.00922815, 0.999957, 125.001, 18.7711)
 auto_calculate_length_and_angle = false
@@ -20945,7 +20945,7 @@ metadata/_local_pose_override_enabled_ = true
 [node name="Bone-6" type="Bone2D" parent="limbContainer/limb11/SoftBody2D/Skeleton2D"]
 position = Vector2(24.9998, 19.9545)
 rotation = 1.58009
-scale = Vector2(0.999997, 0.999997)
+scale = Vector2(0.999996, 0.999996)
 rest = Transform2D(-0.00929847, 0.999957, -0.999957, -0.00929847, 24.9998, 19.9545)
 auto_calculate_length_and_angle = false
 length = 10.0
@@ -47095,8 +47095,6 @@ debug_color = Color(0.952707, 1.2514e-06, 0.55728, 0.42)
 [node name="Camera2D" type="Camera2D" parent="player"]
 rotation = -2.27209
 zoom = Vector2(0.75, 0.75)
-limit_left = -500
-limit_top = -500
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 script = ExtResource("6_xx2ty")
