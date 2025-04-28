@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var cell_size: int = 120
+@export var cell_size: int = 140
 @export var wall_thickness: float = 1.0
 @export var overlap_size: float = 20.0
 @export var loops_in_maze : float = 0.4
@@ -17,6 +17,7 @@ var grid_size = 5
 @onready var spawn_exit_box_container: Node2D = $spawn_exit_box_container
 
 @onready var in_game_equation: Control = $"CanvasLayer/in-game-equation"
+@onready var bg: Sprite2D = $bg
 
 
 class Cell:
@@ -31,21 +32,34 @@ var player_body
  
 
 func _ready():
-	# load the variables from manager : 
+	# load the variables from manager  
 	loops_in_maze = (1 - Manager.maze_complexity)
 	Manager.cell_size = cell_size
 	grid_size = Manager.grid_size
 	print("loops : ", loops_in_maze)
-	
+
+	# ✅ SCALE BACKGROUND TO COVER MAZE
+	var maze_pixel_size = Vector2(grid_size + 6, grid_size + 6) * cell_size
+	var bg_texture_size = bg.texture.get_size()
+	# scale to cover entire maze
+	var scale_factor = Vector2(
+		maze_pixel_size.x / bg_texture_size.x,
+		maze_pixel_size.y / bg_texture_size.y
+	)
+	var max_scale = max(scale_factor.x, scale_factor.y)
+	bg.scale = Vector2.ONE * max_scale
+
+	# center the bg behind the maze
+	bg.global_position = Vector2(maze_pixel_size.x / 2 - 400, maze_pixel_size.y / 2 - 400)
+	#bg.global_position = -Vector2(grid_size + 3, grid_size + 3) * cell_size
+
+	# continue with maze logic
 	generate_maze()
-	
 	spawn_exit_box()
 	convert_maze_to_walls()
-	
 	spawn_player()
 	spawn_counting_tiles()
-	#spawn_enemies(grid_size)
-	#spawn_orbs(0 , grid_size / 2)
+
 
 func _process(delta: float) -> void:
 	if(Manager.reached_exit) : 

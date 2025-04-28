@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://bh1lhu440hpn3"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_efb87"]
+[ext_resource type="Texture2D" uid="uid://d05rg2y43o1rq" path="res://assets/BG36.png" id="1_rh6fx"]
+[ext_resource type="FontFile" uid="uid://uu71y01jplha" path="res://assets/Blueberry .ttf" id="2_hpswq"]
+[ext_resource type="StyleBox" uid="uid://dkve75xsg0seg" path="res://scenes/main_menu_green_box.tres" id="4_pf4m6"]
+[ext_resource type="StyleBox" uid="uid://ceoctxedf0ibd" path="res://scenes/main_menu_yellow_box.tres" id="5_1oach"]
+[ext_resource type="StyleBox" uid="uid://sigyh8t4bo2t" path="res://scenes/main_menu_red_box.tres" id="6_1kgue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahyf3"]
+bg_color = Color(0, 0.27451, 0, 1)
+skew = Vector2(0.25, 0)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(0, 1, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_size = 15
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtkg0"]
+bg_color = Color(0.27451, 0.27451, 0, 1)
+skew = Vector2(0.25, 0)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(1, 1, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 15.0
+expand_margin_right = 15.0
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_size = 15
+anti_aliasing_size = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5k4by"]
+bg_color = Color(0.27451, 0, 0, 1)
+skew = Vector2(0.25, 0)
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+border_color = Color(1, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_size = 15
+anti_aliasing_size = 2.0
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_efb87")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rh6fx")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(0, 1, 0, 1)
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_hpswq")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxFlat_ahyf3")
+theme_override_styles/normal = ExtResource("4_pf4m6")
+text = "Easy"
+
+[node name="Button2" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(1, 1, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_hpswq")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxFlat_qtkg0")
+theme_override_styles/normal = ExtResource("5_1oach")
+text = "Medium"
+
+[node name="Button3" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_hpswq")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/hover = SubResource("StyleBoxFlat_5k4by")
+theme_override_styles/normal = ExtResource("6_1kgue")
+text = "Hard"

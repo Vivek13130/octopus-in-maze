@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/counting_tile.gd" id="1_hjgrb"]
 [ext_resource type="StyleBox" uid="uid://o4x6us42ieyr" path="res://scenes/couting_tile.tres" id="2_oudya"]
 [ext_resource type="Texture2D" uid="uid://cq7w4ibjgfehh" path="res://assets/circle_05.png" id="3_o441s"]
-[ext_resource type="Texture2D" uid="uid://dikr74jjcnim5" path="res://assets/star_06.png" id="4_g1et8"]
+[ext_resource type="Texture2D" path="res://assets/star_06.png" id="4_g1et8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5l5r7"]
 radius = 17.1172

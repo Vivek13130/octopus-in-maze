@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
-const GRAVITY = 800.0
+const SPEED = 250.0
+const GRAVITY = 300.0
 @export var residue_interval := 0.5
 
 @export var residue_scene : PackedScene
@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	if(Manager.reached_exit):
 		return # stop movement
 	
-	velocity.y += (GRAVITY/2) * delta
+	velocity.y += (GRAVITY) * delta
 	
 	# store position at certain intervals or when moved enough
 	if Manager.path_of_player.is_empty() or Manager.path_of_player[-1].distance_to(global_position) > 20.0:

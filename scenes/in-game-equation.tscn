@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://j4k2qlwfn1j"]
+[gd_scene load_steps=8 format=3 uid="uid://j4k2qlwfn1j"]
 
 [ext_resource type="Script" path="res://scenes/in_game_equation.gd" id="1_oalic"]
 [ext_resource type="StyleBox" uid="uid://cr37djakuetom" path="res://scenes/equation_box.tres" id="2_evek4"]
-[ext_resource type="StyleBox" uid="uid://cvee8fp0jmc12" path="res://scenes/empty_equation_box.tres" id="3_8btnd"]
+[ext_resource type="StyleBox" uid="uid://c4m1sjl88est6" path="res://scenes/answer_box.tres" id="3_xackn"]
+[ext_resource type="Texture2D" uid="uid://m7g0b0aaobem" path="res://assets/right ans.png" id="4_c67ag"]
+[ext_resource type="Texture2D" uid="uid://2ewhm53onplk" path="res://assets/wrong ans.png" id="5_bm6tn"]
 
 [sub_resource type="Curve" id="Curve_1ye3j"]
 _data = [Vector2(0, 0.499358), 0.0, 0.0, 0, 0, Vector2(0.550314, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -105,29 +107,28 @@ text = "90"
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("2_evek4")
+theme_override_styles/panel = ExtResource("3_xackn")
 
-[node name="Label" type="Label" parent="main_strip/GridContainer/correct"]
+[node name="Label" type="TextureRect" parent="main_strip/GridContainer/correct"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 60
-text = "✓"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("4_c67ag")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="incorrect" type="PanelContainer" parent="main_strip/GridContainer"]
 visible = false
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("3_8btnd")
+theme_override_styles/panel = ExtResource("3_xackn")
 
-[node name="Label" type="Label" parent="main_strip/GridContainer/incorrect"]
+[node name="Label" type="TextureRect" parent="main_strip/GridContainer/incorrect"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 60
-text = "X"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("5_bm6tn")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="celebrationParticles" type="CPUParticles2D" parent="main_strip"]
 emitting = false
