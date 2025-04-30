@@ -15,15 +15,22 @@ var dragStartMousePos: Vector2
 var dragStartCameraPos: Vector2
 var zoom_level
 var isDetached: bool = false  # Track if the camera is detached from the player
+@onready var camera: Camera2D = $"."
+
 
 func _ready() -> void:
 	zoomTarget = zoom
+	
+	camera.limit_left = int(Manager.camera_limit_left)
+	camera.limit_top = int(Manager.camera_limit_top)
+	camera.limit_right = int(Manager.camera_limit_right)
+	camera.limit_bottom = int(Manager.camera_limit_bottom)
 
 func _process(delta: float) -> void:
-	simple_zoom(delta)
-	pan_camera()
+	#simple_zoom(delta)
+	#pan_camera()
 
-		# Press "C" to reset camera
+	# Press "C" to reset camera
 	if Input.is_action_just_pressed("reset_camera"):
 		reset_camera()
 

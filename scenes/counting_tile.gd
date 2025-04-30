@@ -1,18 +1,12 @@
 extends StaticBody2D
 
 @onready var counting_value: Label = $PanelContainer/counting_value
-@onready var point_light: PointLight2D = $PointLight2D
 @onready var celebrate: CPUParticles2D = $celebrate
 @onready var sad: CPUParticles2D = $sad
 
 var player: Node2D = null
 var is_following: bool = false
-@onready var start_blinking: Timer = $start_blinking
 
-func _ready() -> void:
-	var random_time = randf_range(0, 3.0)
-	start_blinking.wait_time = random_time
-	#start_blinking.start()
 
 
 func _process(delta):
@@ -41,9 +35,11 @@ func _input(event):
 
 		if is_following:
 			Manager.player_grabbed_tile = true  # Store the grabbed tile
+			$tile_pick_drop.play()
 			point_light.color = Color(1, 0.32, 1)
 			point_light.blend_mode = Light2D.BLEND_MODE_ADD
 		else:
+			$tile_pick_drop.play()
 			Manager.player_grabbed_tile = false  # Release tile
 			player = null
 			check_exit_status()  # Check if the tile is in the exit area
@@ -86,13 +82,16 @@ func validate_equation():
 		celebrate.emitting = true
 		Manager.load_next_equation(true)
 		Manager.free_values(tile_value)
+		counting_value.add_theme_color_override("font_color", Color.GREEN)
+		
+
 	else:
 		print("❌ Wrong Answer!")
 		Manager.load_next_equation(false)
 		screen_shake_wrong()
 		shake_tile()
 		sad.emitting = true
-
+		counting_value.add_theme_color_override("font_color", Color.RED)
 
 
 
@@ -152,7 +151,8 @@ func _on_blink_timer_timeout() -> void:
 	 
 	blinking_light.enabled = !blinking_light.enabled
 	if(blinking_light.enabled):
-		blink_timer.wait_time = 0.1
+		blink_timer.wait_time = 0.3
+		
 	else:
 		blink_timer.wait_time = 4
 	blink_timer.start()

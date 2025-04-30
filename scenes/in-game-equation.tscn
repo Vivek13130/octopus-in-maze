@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://j4k2qlwfn1j"]
+[gd_scene load_steps=10 format=3 uid="uid://j4k2qlwfn1j"]
 
 [ext_resource type="Script" path="res://scenes/in_game_equation.gd" id="1_oalic"]
 [ext_resource type="StyleBox" uid="uid://cr37djakuetom" path="res://scenes/equation_box.tres" id="2_evek4"]
 [ext_resource type="StyleBox" uid="uid://c4m1sjl88est6" path="res://scenes/answer_box.tres" id="3_xackn"]
 [ext_resource type="Texture2D" uid="uid://m7g0b0aaobem" path="res://assets/right ans.png" id="4_c67ag"]
 [ext_resource type="Texture2D" uid="uid://2ewhm53onplk" path="res://assets/wrong ans.png" id="5_bm6tn"]
+[ext_resource type="AudioStream" uid="uid://dphkdci6e2scf" path="res://assets/sound/correct_answer.mp3" id="6_lcn8f"]
+[ext_resource type="AudioStream" uid="uid://b546y7tm3kpio" path="res://assets/sound/wrong ans.mp3" id="7_70pc0"]
 
 [sub_resource type="Curve" id="Curve_1ye3j"]
 _data = [Vector2(0, 0.499358), 0.0, 0.0, 0, 0, Vector2(0.550314, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -187,5 +189,13 @@ Heading Back to main menu in 5 s ..."
 [node name="next_equation" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="correct_answer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_lcn8f")
+volume_db = 4.0
+
+[node name="wrong_ans" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_70pc0")
+volume_db = 5.0
 
 [connection signal="timeout" from="next_equation" to="." method="_on_next_equation_timeout"]

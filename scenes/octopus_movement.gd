@@ -23,8 +23,6 @@ func _ready() -> void:
 
 # constant speed movement 
 func _physics_process(delta: float) -> void:
-	if(Manager.reached_exit):
-		return # stop movement
 	
 	velocity.y += (GRAVITY) * delta
 	

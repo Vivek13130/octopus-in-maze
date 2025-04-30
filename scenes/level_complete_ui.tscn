@@ -1,0 +1,119 @@
+[gd_scene load_steps=9 format=3 uid="uid://bjuy3e227c3ce"]
+
+[ext_resource type="Texture2D" uid="uid://t7rgcw5i87i1" path="res://assets/BG34.png" id="1_nxb7x"]
+[ext_resource type="Script" path="res://scenes/level_complete_ui.gd" id="1_uxmbl"]
+[ext_resource type="FontFile" uid="uid://bhww72248xvav" path="res://assets/Bestime.ttf" id="2_0mid3"]
+[ext_resource type="FontFile" uid="uid://uu71y01jplha" path="res://assets/Blueberry .ttf" id="2_06p73"]
+[ext_resource type="StyleBox" uid="uid://dkve75xsg0seg" path="res://scenes/main_menu_green_box.tres" id="3_vsets"]
+[ext_resource type="AudioStream" uid="uid://bu5y52ssj4fvv" path="res://assets/sound/ui_bg_music.mp3" id="6_jh6lu"]
+[ext_resource type="AudioStream" uid="uid://ber2rb55g1kqx" path="res://assets/sound/level_complete.mp3" id="7_c58sx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4yi66"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.0431373, 0.227451, 0.745098, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="level_complete_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uxmbl")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_nxb7x")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="info" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_constants/outline_size = 15
+theme_override_constants/line_separation = 7
+theme_override_fonts/normal_font = ExtResource("2_0mid3")
+theme_override_fonts/mono_font = ExtResource("2_0mid3")
+theme_override_fonts/italics_font = ExtResource("2_0mid3")
+theme_override_fonts/bold_italics_font = ExtResource("2_0mid3")
+theme_override_fonts/bold_font = ExtResource("2_0mid3")
+theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/italics_font_size = 40
+theme_override_font_sizes/mono_font_size = 40
+theme_override_font_sizes/normal_font_size = 40
+theme_override_font_sizes/bold_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_4yi66")
+bbcode_enabled = true
+text = "You took 1min 43sec to solve 8 equations. 
+Try to improve ! "
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="play_again" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_06p73")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = ExtResource("3_vsets")
+theme_override_styles/pressed = ExtResource("3_vsets")
+theme_override_styles/normal = ExtResource("3_vsets")
+text = "Play Again "
+
+[node name="main_menu" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("2_06p73")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/hover = ExtResource("3_vsets")
+theme_override_styles/pressed = ExtResource("3_vsets")
+theme_override_styles/normal = ExtResource("3_vsets")
+text = "Main Menu"
+
+[node name="bg_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_jh6lu")
+volume_db = -3.0
+autoplay = true
+parameters/looping = true
+
+[node name="level_comp" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_c58sx")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play_again" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/main_menu" to="." method="_on_main_menu_pressed"]

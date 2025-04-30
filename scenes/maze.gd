@@ -53,9 +53,21 @@ func _ready():
 	bg.global_position = Vector2(maze_pixel_size.x / 2 - 400, maze_pixel_size.y / 2 - 400)
 	#bg.global_position = -Vector2(grid_size + 3, grid_size + 3) * cell_size
 
+	# Get final visible size of the scaled background
+	var bg_size_scaled = bg.texture.get_size() * bg.scale
+	var bg_top_left = bg.global_position - bg_size_scaled / 2
+	var bg_bottom_right = bg.global_position + bg_size_scaled / 2
+
+	# Set camera limits
+	Manager.camera_limit_left = int(bg_top_left.x)
+	Manager.camera_limit_top = int(bg_top_left.y)
+	Manager.camera_limit_right = int(bg_bottom_right.x)
+	Manager.camera_limit_bottom = int(bg_bottom_right.y)
+
 	# continue with maze logic
 	generate_maze()
 	spawn_exit_box()
+	spawn_spawn_box()
 	convert_maze_to_walls()
 	spawn_player()
 	spawn_counting_tiles()
@@ -76,27 +88,24 @@ func format_time(seconds: float) -> String:
 	return "%02d:%02d" % [mins, secs]
 
 
-
-
-
-
-
 func check_exit_status():
 	
 	if Manager.equation_solved == Manager.equation_count and !Manager.reached_exit :
 		Manager.reached_exit = true
-		$Line2D.points = Manager.path_of_player
-		$residueContainer.visible = false
+		#$Line2D.points = Manager.path_of_player
 		head_to_ui.start()
 		print("Player reached out of grid! Timer started")
+		
+		print("time consumed : " , Manager.total_time)
+		Manager.total_time_taken = format_time(Manager.total_time)
+		Manager.total_equation_solved = Manager.equation_count
 		
 		for enemy in Manager.enemy_list:
 			if is_instance_valid(enemy):
 				enemy.explode()
 
 
-
-
+#region Spawning Code
 func spawn_player():
 	print("player spawned")
 	player = player_scene.instantiate()
@@ -145,7 +154,10 @@ func spawn_counting_tiles():
 		add_child(tile)
 
 	print("\nPlaced Counting Tiles at:", selected_cells)
+#endregion
 
+
+#region Maze Generation
 
 func create_wall(position: Vector2, size: Vector2, color: Color) -> StaticBody2D:
 	var wall = StaticBody2D.new()
@@ -178,35 +190,43 @@ func create_wall(position: Vector2, size: Vector2, color: Color) -> StaticBody2D
 	return wall
 
 
+
 func spawn_spawn_box():
-	var base_pos = Vector2(-cell_size - overlap_size, -cell_size - overlap_size)
+	var base_pos = Vector2(-2 * cell_size - 2 * overlap_size, -2 * cell_size - 2 * overlap_size)
 
-	# Top wall (2 parts with small opening)
-	var top_wall = create_wall(base_pos, Vector2(cell_size * 2, wall_thickness + overlap_size), Color.YELLOW)
-	#var top_wall_left = create_wall(base_pos, Vector2(cell_size , wall_thickness + overlap_size), Color.YELLOW)
-	#var top_wall_right = create_wall(base_pos + Vector2(cell_size , 0), Vector2(cell_size, wall_thickness + overlap_size), Color.YELLOW)
+	# Full Top wall
+	var top_wall = create_wall(
+		base_pos,
+		Vector2(cell_size * 4, wall_thickness + overlap_size),
+		Color.YELLOW
+	)
 
-	# Left wall (2 parts with opening)
-	var left_wall = create_wall(base_pos, Vector2(wall_thickness + overlap_size, cell_size * 2), Color.YELLOW)
-	
-	#var left_wall_top = create_wall(base_pos, Vector2(wall_thickness + overlap_size, cell_size), Color.YELLOW)
-	#var left_wall_bottom = create_wall(base_pos + Vector2(0, cell_size ), Vector2(wall_thickness + overlap_size, cell_size ), Color.YELLOW)
+	# Full Left wall
+	var left_wall = create_wall(
+		base_pos,
+		Vector2(wall_thickness + overlap_size, cell_size * 4),
+		Color.YELLOW
+	)
 
-	# Bottom wall
-	var bottom_wall = create_wall(base_pos + Vector2(0, 2 * cell_size), Vector2(cell_size , wall_thickness + overlap_size), Color.YELLOW)
+	# Bottom wall - left half only
+	var bottom_wall_left = create_wall(
+		base_pos + Vector2(0, 4 * cell_size),
+		Vector2(cell_size * 2 + overlap_size, wall_thickness + overlap_size),
+		Color.YELLOW
+	)
 
-	# Right wall
-	var right_wall = create_wall(base_pos + Vector2(2 * cell_size, 0), Vector2(wall_thickness+ overlap_size, cell_size ), Color.YELLOW)
+	# Right wall - top half only
+	var right_wall_top = create_wall(
+		base_pos + Vector2(4 * cell_size, 0),
+		Vector2(wall_thickness + overlap_size, cell_size * 2 + overlap_size ),
+		Color.YELLOW
+	)
 
+	# Add to container
 	spawn_exit_box_container.add_child(top_wall)
 	spawn_exit_box_container.add_child(left_wall)
-	#spawn_exit_box_container.add_child(top_wall_left)
-	#spawn_exit_box_container.add_child(top_wall_right)
-	#spawn_exit_box_container.add_child(left_wall_top)
-	#spawn_exit_box_container.add_child(left_wall_bottom)
-	spawn_exit_box_container.add_child(bottom_wall)
-	spawn_exit_box_container.add_child(right_wall)
-
+	spawn_exit_box_container.add_child(bottom_wall_left)
+	spawn_exit_box_container.add_child(right_wall_top)
 
 
 func spawn_exit_box():
@@ -384,10 +404,12 @@ func spawn_wall(position: Vector2, size: Vector2):
 	wall.add_child(color_rect)
 
 	maze_walls_container.add_child(wall)
+#endregion
 
 
 func _on_head_to_ui_timeout() -> void:
 	print("RESTARTING GAME...")
-	Manager.clear_manager_state()
-	get_tree().change_scene_to_file("res://scenes/main_ui.tscn")
+
+	#Manager.clear_manager_state()
+	get_tree().change_scene_to_file("res://scenes/level_complete_ui.tscn")
 	

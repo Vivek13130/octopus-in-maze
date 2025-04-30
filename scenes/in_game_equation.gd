@@ -45,6 +45,7 @@ func _process(delta: float) -> void:
 	if(!Manager.reached_exit):
 		time_consumed += delta
 	else:
+		
 		if(status.visible == false):
 			status.visible = true
 		
@@ -55,14 +56,14 @@ func _process(delta: float) -> void:
 	
 	# Update timer label
 	timer.text = "Time: %02d:%02d" % [minutes, seconds]
-	
+	Manager.total_time_taken = timer.text
 	# Update solved equations count
 	equation_solved.text = "Solved: %d / %d" % [Manager.equation_solved, Manager.equation_count]
 	
 
 func update_status_label() -> void:
 	if(Manager.time_to_ui != -1):
-		status.text = "You solved all equations in: " + str(int(time_consumed)) + "s.\n" + "Heading Back to main menu in " + str(int(Manager.time_to_ui)) + "s ..."
+		status.text = str(int(Manager.time_to_ui)) + "s ..."
 
 
 func generate_equations() -> void:
@@ -213,12 +214,14 @@ func update_ui(status : bool) -> void:
 				# Move and trigger particles
 				celebration_particles.global_position = label_to_grow.global_position + Vector2(40, 40)
 				celebration_particles.emitting = true
+				
+		$correct_answer.play()
 	else:
 		incorrect.visible = true 
+		$wrong_ans.play()
 		
 	$next_equation.start()
 	
-
 
 
 func load_next_equation():

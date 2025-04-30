@@ -14,6 +14,10 @@ var reached_exit : bool = false
 var leave_residue : bool = false  
 var player_grabbed_tile: bool = false  # Stores the currently grabbed tile
 
+var camera_limit_left 
+var camera_limit_top  
+var camera_limit_right 
+var camera_limit_bottom
 
 var total_time : float = 0
 
@@ -34,6 +38,8 @@ var correct_operators := []
 var maze_complexity : float = 0.8
 var equation_count : int = 3
 var equation_solved : int = 0
+var total_time_taken : String = "0min 0sec"
+var total_equation_solved : int = 0
 
 var game_equation_scene: Node = null  # Reference to GameEquation scene
 
