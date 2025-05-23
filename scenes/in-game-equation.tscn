@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://j4k2qlwfn1j"]
+[gd_scene load_steps=8 format=3 uid="uid://j4k2qlwfn1j"]
 
 [ext_resource type="Script" path="res://scenes/in_game_equation.gd" id="1_oalic"]
 [ext_resource type="StyleBox" uid="uid://cr37djakuetom" path="res://scenes/equation_box.tres" id="2_evek4"]
@@ -7,14 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://2ewhm53onplk" path="res://assets/wrong ans.png" id="5_bm6tn"]
 [ext_resource type="AudioStream" uid="uid://dphkdci6e2scf" path="res://assets/sound/correct_answer.mp3" id="6_lcn8f"]
 [ext_resource type="AudioStream" uid="uid://b546y7tm3kpio" path="res://assets/sound/wrong ans.mp3" id="7_70pc0"]
-
-[sub_resource type="Curve" id="Curve_1ye3j"]
-_data = [Vector2(0, 0.499358), 0.0, 0.0, 0, 0, Vector2(0.550314, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Gradient" id="Gradient_u7oiw"]
-offsets = PackedFloat32Array(0, 0.239865, 1)
-colors = PackedColorArray(1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
 [node name="in-game-equation" type="Control"]
 layout_mode = 3
@@ -131,22 +123,6 @@ size_flags_horizontal = 4
 texture = ExtResource("5_bm6tn")
 expand_mode = 1
 stretch_mode = 5
-
-[node name="celebrationParticles" type="CPUParticles2D" parent="main_strip"]
-emitting = false
-amount = 40
-lifetime = 2.0
-one_shot = true
-explosiveness = 0.5
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 300)
-initial_velocity_min = 300.0
-initial_velocity_max = 300.0
-scale_amount_min = 5.0
-scale_amount_max = 20.0
-scale_amount_curve = SubResource("Curve_1ye3j")
-color_ramp = SubResource("Gradient_u7oiw")
 
 [node name="bottom_strip" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(0, 80)

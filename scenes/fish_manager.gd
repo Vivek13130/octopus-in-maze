@@ -1,14 +1,13 @@
 extends Node2D
 
 var fish_speed = 50
-var turn_chance = 0.01
-var max_turn_angle = deg_to_rad(5)  # Limit how much they can turn per frame
+var turn_chance = 0.5
+var max_turn_angle = deg_to_rad(2)  # Limit how much they can turn per frame
 
 func _process(delta):
 	var screen_rect = get_viewport_rect()
 
 	for fish in get_children():
-		# Initialize direction if not set
 		if not fish.has_meta("dir"):
 			var init_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 			fish.set_meta("dir", init_dir)

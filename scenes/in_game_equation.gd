@@ -7,8 +7,6 @@ var equation_count: int = 5
 var equations_dict = {}  # Dictionary to store indexed equations
 
 var current_equation_ind : int =  0
-@onready var celebration_particles: CPUParticles2D = $main_strip/celebrationParticles
-
 
 @onready var num1_label: Label = $main_strip/GridContainer/num1/Label
 @onready var op_label: Label = $main_strip/GridContainer/operator/Label
@@ -211,10 +209,6 @@ func update_ui(status : bool) -> void:
 					60, font_size, 0.8
 				)
 
-				# Move and trigger particles
-				celebration_particles.global_position = label_to_grow.global_position + Vector2(40, 40)
-				celebration_particles.emitting = true
-				
 		$correct_answer.play()
 	else:
 		incorrect.visible = true 
@@ -231,9 +225,6 @@ func load_next_equation():
 		return
 	
 	
-	print("total equations : ", equation_count)
-	print("updating for index : ", current_equation_ind)
-
 	var first_eq = equations_dict[current_equation_ind]
 
 	# Update labels

@@ -3,10 +3,10 @@ extends StaticBody2D
 @onready var counting_value: Label = $PanelContainer/counting_value
 @onready var celebrate: CPUParticles2D = $celebrate
 @onready var sad: CPUParticles2D = $sad
+@onready var point_light: PointLight2D = $PointLight2D
 
 var player: Node2D = null
 var is_following: bool = false
-
 
 
 func _process(delta):
@@ -48,21 +48,13 @@ func check_exit_status():
 	var grid_size = Manager.grid_size
 	var cell_size = Manager.cell_size
 	
-	print("grid size : ", grid_size)
-	print("cell size : ", cell_size)
-	# Define the exit box region
 	var exit_x = (grid_size - 1)* cell_size 
 	var exit_y = (grid_size - 1)* cell_size 
 	
-	print("Exit pos : ", Vector2(exit_x,exit_y))
 	
 	# Check if the tile is in the exit area
 	if global_position.x > exit_x and global_position.y > exit_y:
-		print("Tile dropped in exit box!")
 		validate_equation()
-	else:
-		print("Tile dropped outside exit box.")
-		print("tile pos : " , global_position)
 
 
 
@@ -94,6 +86,7 @@ func validate_equation():
 		counting_value.add_theme_color_override("font_color", Color.RED)
 
 
+#region screen shake
 
 func screen_shake_correct():
 	var scene = get_tree().current_scene
@@ -121,6 +114,7 @@ func shake_tile():
 	tween.tween_property(self, "position:x", position.x + 40, 0.05)
 	tween.tween_property(self, "position:x", position.x - 40, 0.05)
 	tween.tween_property(self, "position:x", position.x, 0.05)
+#endregion
 
 
 func particles_finished() -> void:
@@ -140,24 +134,3 @@ func get_random_grid_position() -> Vector2:
 	var random_x = randi_range(0, grid_size - 1)
 	var random_y = randi_range(0, grid_size - 1)
 	return Vector2((random_x + 0.5) * cell_size, (random_y + 0.5) * cell_size)
-
-@onready var blinking_light: PointLight2D = $blinking_light
-@onready var blink_timer: Timer = $blink_timer
-
-func _on_blink_timer_timeout() -> void:
-	if(is_following):
-		blinking_light.enabled = false 
-		return 
-	 
-	blinking_light.enabled = !blinking_light.enabled
-	if(blinking_light.enabled):
-		blink_timer.wait_time = 0.3
-		
-	else:
-		blink_timer.wait_time = 4
-	blink_timer.start()
-
-
-func _on_start_blinking_timeout() -> void:
-	blink_timer.autostart = true
-	blink_timer.start()

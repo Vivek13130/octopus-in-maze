@@ -94,7 +94,6 @@ func check_exit_status():
 		Manager.reached_exit = true
 		#$Line2D.points = Manager.path_of_player
 		head_to_ui.start()
-		print("Player reached out of grid! Timer started")
 		
 		print("time consumed : " , Manager.total_time)
 		Manager.total_time_taken = format_time(Manager.total_time)

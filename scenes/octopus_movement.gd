@@ -13,7 +13,6 @@ var prev_residue_pos : Vector2
 
 var path_points: Array = []
 
-	
 
 func _ready() -> void:
 	$residueTimer.wait_time = residue_interval 
